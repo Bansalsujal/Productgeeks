@@ -1,0 +1,46 @@
+{
+  "name": "Question",
+  "type": "object",
+  "properties": {
+    "question_text": {
+      "type": "string",
+      "description": "The interview question text"
+    },
+    "type_label": {
+      "type": "string",
+      "enum": [
+        "design",
+        "improvement",
+        "rca",
+        "guesstimate"
+      ],
+      "description": "Question category type"
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": [
+        "beginner",
+        "intermediate",
+        "advanced"
+      ],
+      "default": "intermediate",
+      "description": "Question difficulty level"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional question metadata and tags"
+    }
+  },
+  "required": [
+    "question_text",
+    "type_label"
+  ],
+  "rls": {
+    "read": {},
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

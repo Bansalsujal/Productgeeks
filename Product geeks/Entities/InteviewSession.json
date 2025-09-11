@@ -1,0 +1,83 @@
+{
+  "name": "InterviewSession",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "User who took the interview"
+    },
+    "question_id": {
+      "type": "string",
+      "description": "Question that was asked"
+    },
+    "question_type": {
+      "type": "string",
+      "enum": [
+        "design",
+        "improvement",
+        "rca",
+        "guesstimate"
+      ],
+      "description": "Type of question"
+    },
+    "conversation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Chat conversation history"
+    },
+    "duration_minutes": {
+      "type": "number",
+      "description": "How long the session lasted"
+    },
+    "composite_score": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 10,
+      "description": "Overall score from AI evaluation"
+    },
+    "dimension_scores": {
+      "type": "object",
+      "description": "Scores for each evaluation dimension"
+    },
+    "feedback": {
+      "type": "object",
+      "properties": {
+        "what_worked_well": {
+          "type": "string"
+        },
+        "areas_to_improve": {
+          "type": "string"
+        }
+      },
+      "description": "Structured feedback from AI"
+    },
+    "completed": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether session was completed"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date when session was completed"
+    }
+  },
+  "required": [
+    "user_id",
+    "question_id",
+    "question_type"
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "name": "UserStats",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "User ID"
+    },
+    "current_streak": {
+      "type": "number",
+      "default": 0,
+      "description": "Current daily streak"
+    },
+    "longest_streak": {
+      "type": "number",
+      "default": 0,
+      "description": "Longest streak achieved"
+    },
+    "total_solved": {
+      "type": "number",
+      "default": 0,
+      "description": "Total questions solved"
+    },
+    "avg_score_design": {
+      "type": "number",
+      "description": "Average score for design questions"
+    },
+    "avg_score_improvement": {
+      "type": "number",
+      "description": "Average score for improvement questions"
+    },
+    "avg_score_rca": {
+      "type": "number",
+      "description": "Average score for RCA questions"
+    },
+    "avg_score_guesstimate": {
+      "type": "number",
+      "description": "Average score for guesstimate questions"
+    },
+    "last_activity_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Last date user completed a session"
+    },
+    "activity_calendar": {
+      "type": "object",
+      "description": "Calendar data for activity tracking"
+    }
+  },
+  "required": [
+    "user_id"
+  ]
+}

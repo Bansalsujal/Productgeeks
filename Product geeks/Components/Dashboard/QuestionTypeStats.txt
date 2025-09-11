@@ -1,0 +1,99 @@
+
+import React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { 
+  Lightbulb, 
+  TrendingUp, 
+  AlertTriangle, 
+  Calculator,
+  Target
+} from "lucide-react";
+
+const questionTypes = [
+  {
+    key: 'design',
+    label: 'Product Design',
+    icon: Lightbulb,
+    color: 'text-purple-600',
+    bgColor: 'bg-purple-100'
+  },
+  {
+    key: 'improvement', 
+    label: 'Product Improvement',
+    icon: TrendingUp,
+    color: 'text-blue-600',
+    bgColor: 'bg-blue-100'
+  },
+  {
+    key: 'rca',
+    label: 'Root Cause Analysis',
+    icon: AlertTriangle,
+    color: 'text-red-600',
+    bgColor: 'bg-red-100'
+  },
+  {
+    key: 'guesstimate',
+    label: 'Guesstimate',
+    icon: Calculator,
+    color: 'text-green-600',
+    bgColor: 'bg-green-100'
+  }
+];
+
+export default function QuestionTypeStats({ userStats, sessions }) {
+  const getStatsForType = (type) => {
+    // Make sure we're only counting sessions for the current user that are completed
+    const completedSessions = sessions.filter(s => s.question_type === type && s.completed);
+    const avgScore = userStats?.[`avg_score_${type}`] || 0;
+    const count = completedSessions.length;
+    
+    console.log(`Stats for ${type}:`, { avgScore, count, completedSessions });
+    return { avgScore, count };
+  };
+
+  return (
+    <Card className="shadow-lg border-0">
+      <CardHeader className="pb-4">
+        <CardTitle className="flex items-center gap-2 text-xl font-bold text-gray-900">
+          <Target className="w-6 h-6 text-indigo-600" />
+          Performance by Category
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-6">
+          {questionTypes.map(type => {
+            const { avgScore, count } = getStatsForType(type.key);
+            const progressValue = (avgScore / 10) * 100;
+            
+            return (
+              <div key={type.key} className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className={`p-2 rounded-lg ${type.bgColor}`}>
+                      <type.icon className={`w-5 h-5 ${type.color}`} />
+                    </div>
+                    <div>
+                      <p className="font-medium text-gray-900">{type.label}</p>
+                      <p className="text-sm text-gray-500">{count} completed</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-lg font-bold text-gray-900">
+                      {avgScore > 0 ? avgScore.toFixed(1) : '--'}
+                    </p>
+                    <p className="text-sm text-gray-500">avg score</p>
+                  </div>
+                </div>
+                <Progress 
+                  value={progressValue} 
+                  className="h-2"
+                />
+              </div>
+            );
+          })}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
